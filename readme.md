@@ -180,6 +180,26 @@ flux create helmrelease redis \
 # check the release yaml
 cat infra/redis-release.yaml
 
+# (Optional) define nginx Helm chart origin and release
+flux create source helm nginx \
+   --url=https://charts.bitnami.com/ --namespace cluster-config \
+   --interval=10m --export > infra/nginx-chart.yaml
+
+# check the source yaml
+cat infra/nginx-chart.yaml
+
+flux create helmrelease nginx \
+  --source=HelmRepository/nginx \
+  --chart=nginx \
+  --release-name=nginx \
+  --namespace=cluster-config \
+  --target-namespace=nginx \
+  --create-target-namespace=true \
+  --export > infra/nginx-release.yaml
+
+# check the release yaml
+cat infra/nginx-release.yaml
+
 # let's create a Flux configuration now; first grab the remote origin
 REMOTE=$(git remote get-url origin)
 
