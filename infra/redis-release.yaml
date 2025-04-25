@@ -14,6 +14,9 @@ spec:
         name: redis
   install:
     createNamespace: true
+    remediation:
+      retries: 3
+      retryInterval: 5s
   interval: 1m0s
   releaseName: redis
   targetNamespace: redis

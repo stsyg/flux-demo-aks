@@ -126,13 +126,14 @@ Extra requirements:
 # for example: source-controller v0.24.2
 flux version
 
-# create a random scratch folder and cd into it
+# (Optional) create a random scratch folder and cd into it
+# I created a folder in my repos folder named flux-demo-aks. The repo is https://github.com/stsyg/flux-demo-aks and needs to be public. If it's private you'll need to add `--ssh-private-key` or `--ssh-private-key-file` to the `az k8s-configuration flux create` command later in this demo.
 SUFFIX=$RANDOM
 mkdir scratch$SUFFIX; cd scratch$SUFFIX
 
 # use github CLI to create a public repo and clone it
 # change REPO if needed
-REPO=flux-quick
+REPO=flux-demo-aks
 gh repo create $REPO --public --clone; cd $REPO
 
 # add the infra folder
@@ -189,8 +190,10 @@ REMOTE=$(git remote get-url origin)
 az k8s-configuration flux create -g $RG -c $CLUSTER \
   -n cluster-config --namespace cluster-config -t managedClusters \
   --scope cluster -u $REMOTE \
-  --branch master  \
+  --branch main  \
   --kustomization name=infra path=./infra prune=true
+
+> Note: 
 
 # this should result in errors because we did not push changes to git
 # the kustomization does not find an ./infra folder YET
