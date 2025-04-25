@@ -6,4 +6,4 @@ metadata:
   namespace: cluster-config
 spec:
   interval: 10m0s
-  url: https://ghcr.io/nginx
+  url: https://ghcr.io/nginx/nginx-gateway-fabric
