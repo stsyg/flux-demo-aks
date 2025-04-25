@@ -182,7 +182,7 @@ cat infra/redis-release.yaml
 
 # (Optional) define nginx Helm chart origin and release
 flux create source helm nginx \
-   --url=https://charts.bitnami.com/bitnami --namespace cluster-config \
+   --url=https://ghcr.io/nginx --namespace cluster-config \
    --interval=10m --export > infra/nginx-chart.yaml
 
 # check the source yaml
